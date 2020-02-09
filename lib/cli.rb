@@ -23,6 +23,7 @@ NNNNNNNN         NNNNNNNBBBBBBBBBBBBBBBBBAAAAAAA                   AAAAAAA
 "
         puts "---------------------------------------------------------------------------"
         puts "                    Welcome to the NBA family!"
+        puts "                   Copyright © 2020 oliverfeher"
         puts ""
         puts ""
         list_options
@@ -36,6 +37,7 @@ NNNNNNNN         NNNNNNNBBBBBBBBBBBBBBBBBAAAAAAA                   AAAAAAA
             2. List of teams
             3. About the NBA
             4. Credits
+            5. Exit
         DOC
         puts ""
         puts ""
@@ -47,7 +49,7 @@ NNNNNNNN         NNNNNNNBBBBBBBBBBBBBBBBBAAAAAAA                   AAAAAAA
         user_input = gets.strip
         
         case user_input
-        when "exit"
+        when "5"
             closing
         when "1"
             enter_team
@@ -68,6 +70,13 @@ NNNNNNNN         NNNNNNNBBBBBBBBBBBBBBBBBAAAAAAA                   AAAAAAA
         user_inpot = gets.strip
     end
     
+
+    def closing
+        puts ""
+        puts "Thank you for using NBA Family"
+        puts "See you next time!"
+        exit
+    end
     
     
 
