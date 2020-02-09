@@ -1,5 +1,3 @@
-require "pry"
-
 class Cli
 
     def run
@@ -23,6 +21,7 @@ NNNNNNNN         NNNNNNNBBBBBBBBBBBBBBBBBAAAAAAA                   AAAAAAA
 "
         puts "---------------------------------------------------------------------------"
         puts "                    Welcome to the NBA family!"
+        puts "             All display data belongs to Wikipedia.com"
         puts "                   Copyright © 2020 oliverfeher"
         puts ""
         puts ""
@@ -30,6 +29,7 @@ NNNNNNNN         NNNNNNNBBBBBBBBBBBBBBBBBAAAAAAA                   AAAAAAA
     end
 
     def list_options
+        puts ""
         puts "Select from the following options!"
         puts ""
         puts <<-DOC.gsub /^\s*/, ''
@@ -47,7 +47,8 @@ NNNNNNNN         NNNNNNNBBBBBBBBBBBBBBBBBAAAAAAA                   AAAAAAA
     def menu_input
         puts"Your selection is:" 
         user_input = gets.strip
-        
+        puts ""
+
         case user_input
         when "5"
             closing
@@ -67,7 +68,7 @@ NNNNNNNN         NNNNNNNBBBBBBBBBBBBBBBBBAAAAAAA                   AAAAAAA
 
     def enter_team
         puts "Type your team name here:"
-        user_inpot = gets.strip
+        user_input = gets.strip
     end
     
 
@@ -78,6 +79,34 @@ NNNNNNNN         NNNNNNNBBBBBBBBBBBBBBBBBAAAAAAA                   AAAAAAA
         exit
     end
     
+    def nba_info
+        puts ""
+        puts "========================================="
+        puts "The National Basketball Association (NBA)"
+        puts "========================================="
+        puts ""
+        Scraper.get_nba_info
+        puts ""
+        puts ""
+        menu_or_exit
+    end
+
+    def menu_or_exit
+        puts "Select from available options:"
+        puts "1. Menu"
+        puts "2. Exit"
+        puts ""
+        puts"Your selection is:"
+        user_input = gets.strip
+
+        case user_input
+        when "1"
+            list_options
+        when "2"
+            closing
+        end
+    end
+
     
 
 
