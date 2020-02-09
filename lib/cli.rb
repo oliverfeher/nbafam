@@ -107,6 +107,22 @@ NNNNNNNN         NNNNNNNBBBBBBBBBBBBBBBBBAAAAAAA                   AAAAAAA
         end
     end
 
+    def credits
+        puts "                    Welcome to the NBA family!"
+        puts "             All display data belongs to Wikipedia.com"
+        puts "                   Copyright © 2020 oliverfeher"
+        puts ""
+        puts "The NBA Family application was made by Oliver Feher."
+        puts "Oliver is currently a Flatiron School coding bootcamp student, "
+        puts "and this project was build for the first module of the curriculum."
+        puts ""
+        puts "Contact information:"
+        puts "E-mail: olcsee@gmail.com"
+        puts "LinkedIn: https://www.linkedin.com/in/oliver-feher-10093912a/ "
+        puts "GitHub: https://github.com/oliverfeher "
+        puts ""
+        menu_or_exit
+    end
     
 
 
