@@ -50,7 +50,6 @@ class Scraper
     # --------------------------------------------------------------------
     def self.get_team_list
         doc = Nokogiri::HTML(open("https://www.nba.com/teams"))
-        hash = {}
         team_list = doc.css(".team__list").collect do |team|      
             team.text                                               
         end
