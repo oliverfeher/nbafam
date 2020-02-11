@@ -1,8 +1,9 @@
 class Cli
+    attr_accessor :team_select
 
     def run
         puts "                                                            
-NNNNNNNN        NNNNNNNNBBBBBBBBBBBBBBBBB               AAA               
+NNNNNNNN        NNNNNNNNBBBBBBBBBBBBBBBBB               AAA.              
 N:::::::N       N::::::NB::::::::::::::::B             A:::A              
 N::::::::N      N::::::NB::::::BBBBBB:::::B           A:::::A             
 N:::::::::N     N::::::NBB:::::B     B:::::B         A:::::::A            
@@ -19,108 +20,227 @@ N::::::N       N:::::::NB:::::::::::::::::BA:::::A               A:::::A
 N::::::N        N::::::NB::::::::::::::::BA:::::A                 A:::::A 
 NNNNNNNN         NNNNNNNBBBBBBBBBBBBBBBBBAAAAAAA                   AAAAAAA
 "
-        puts "---------------------------------------------------------------------------"
-        puts "                    Welcome to the NBA family!"
-        puts "             All display data belongs to Wikipedia.com"
-        puts "                   Copyright © 2020 oliverfeher"
-        puts ""
-        puts ""
+        puts <<~DOC
+        ---------------------------------------------------------------------------
+                             Welcome to the NBA family!
+                      All display data belongs to Wikipedia.com
+                           Copyright © 2020 oliverfeher
+         
+        DOC
         list_options
     end
 
-    def list_options
-        puts ""
-        puts "Select from the following options!"
-        puts ""
-        puts <<-DOC.gsub /^\s*/, ''
-            1. Enter your team
-            2. List of teams
-            3. About the NBA
-            4. Credits
-            5. Exit
+ 
+       # Listing main menu options + nested menu_input for user interaction
+       def list_options
+        puts <<~DOC
+
+        Select from the following options!
+
+        1. Enter your team
+        2. List of teams
+        3. About the NBA
+        4. Credits
+        5. Exit
+
+
         DOC
-        puts ""
-        puts ""
         menu_input
     end
 
+    # Listing main menu options + nested menu_input for user interaction + clears the page
+    def list_options2
+        system "clear"
+        puts <<~DOC
+        Select from the following options!
+       
+        1. Enter your team
+        2. List of teams
+        3. About the NBA
+        4. Credits
+        5. Exit
+
+        DOC
+        menu_input
+    end
+
+    # Responsible for user interaction + nested logic for each selection
     def menu_input
         puts"Your selection is:" 
         user_input = gets.strip
         puts ""
 
         case user_input
-        when "5"
-            closing
         when "1"
             enter_team
         when "2"
-            list_teams
+            system "clear"
+            NBA_TEAM.create_nba_teams
+            puts NBA_TEAM.list
+            select_team
         when "3"
             nba_info
         when "4"
             credits
+        when "5"
+            closing
         else
             puts "Incorrect selection!"
             list_options
         end
     end
 
-    def enter_team
-        puts "Type your team name here:"
-        user_input = gets.strip
-    end
     
-
-    def closing
-        puts ""
-        puts "Thank you for using NBA Family"
-        puts "See you next time!"
-        exit
-    end
-    
-    def nba_info
-        puts ""
-        puts "========================================="
-        puts "The National Basketball Association (NBA)"
-        puts "========================================="
-        puts ""
-        Scraper.get_nba_info
-        puts ""
-        puts ""
-        menu_or_exit
-    end
-
-    def menu_or_exit
-        puts "Select from available options:"
-        puts "1. Menu"
-        puts "2. Exit"
-        puts ""
-        puts"Your selection is:"
+    def little_menu_input
         user_input = gets.strip
 
         case user_input
         when "1"
-            list_options
+            list_options2
         when "2"
             closing
+        else
+            puts "Incorrect selection!"
+            menu_or_exit
         end
     end
 
+    def menu_or_exit
+        puts <<~DOC
+        Select from available options:
+        1. Menu
+        2. Exit
+        
+        Your selection is:
+        DOC
+        little_menu_input
+    end
+
+    def self.select_another_exit
+        puts <<~DOC
+        -------------------------------
+        
+        Select from available options:
+        1. Menu
+        2. Select another team from list
+        3. Exit
+        
+        Your selection is:
+        DOC
+        Cli.new.select_another_exit2
+    end
+
+    def select_another_exit2    
+        user_input = gets.strip
+        case user_input
+        when "1"
+            Cli.new.list_options2
+        when "2"
+            system "clear"
+            puts NBA_TEAM.list
+            select_team
+        when "3"
+            closing
+        else
+            puts "Incorrect selection!"
+            Cli.select_another_exit
+        end
+    end
+
+
+
+    # Responsible for team selection from the list
+    def select_team
+        puts <<~DOC
+        ----------------------
+        Select team by number:
+        DOC
+        select_team_input
+    end
+
+    def select_team_input
+        user_input = gets.strip
+        team = NBA_TEAM.all[user_input.to_i - 1]
+        if user_input.to_i > 30 || user_input.to_i < 1 # Validation for userselection!!
+            puts "Incorrect selection! Try it again!"
+            select_team
+        else 
+            system "clear"
+            puts team.info 
+            Cli.select_another_exit
+        end
+    end
+    
+    # Responsible for team selection by entering the name
+    def enter_team
+        NBA_TEAM.create_nba_teams
+        puts "Type your team name here:"
+        user_input = gets.strip
+        team = NBA_TEAM.all.detect {|a| a.name.downcase.include? "#{user_input}" }
+        if !team # Validation for entry !!!
+            puts "Incorrect selection! Try it again!"
+            enter_team
+        else
+            system "clear"
+            puts team.info 
+            Cli.select_another_exit
+        end
+    end
+
+    
+    # Responsible for exiting the app
+    def closing
+        system "clear"
+        puts <<~DOC
+             
+        ╔═╗┌─┐┌─┐  ┬ ┬┌─┐┬ ┬┬
+        ╚═╗├┤ ├┤   └┬┘│ ││ ││
+        ╚═╝└─┘└─┘   ┴ └─┘└─┘o
+
+        Thank you for using NBA Family!
+        Copyright © 2020 oliverfeher
+        DOC
+        exit
+    end
+    
+    # Responsible for displaying the general info for the league with a scraper
+    def nba_info
+        system "clear"
+        info = Scraper.get_nba_info
+        puts <<~DOC
+         =========================================
+         The National Basketball Association (NBA)
+         =========================================
+         
+         #{info[0]}
+         
+         #{info[1]}
+         
+         DOC
+        menu_or_exit
+    end
+
+    # Responsible for displaying app credits
     def credits
-        puts "                    Welcome to the NBA family!"
-        puts "             All display data belongs to Wikipedia.com"
-        puts "                   Copyright © 2020 oliverfeher"
-        puts ""
-        puts "The NBA Family application was made by Oliver Feher."
-        puts "Oliver is currently a Flatiron School coding bootcamp student, "
-        puts "and this project was build for the first module of the curriculum."
-        puts ""
-        puts "Contact information:"
-        puts "E-mail: olcsee@gmail.com"
-        puts "LinkedIn: https://www.linkedin.com/in/oliver-feher-10093912a/ "
-        puts "GitHub: https://github.com/oliverfeher "
-        puts ""
+        system "clear"
+        puts <<~DOC
+                   ----------------------------------------------
+                   |         Welcome to the NBA family!         |
+                   | All display data belongs to Wikipedia.com  |
+                   |        Copyright © 2020 oliverfeher        |
+                   ----------------------------------------------
+        
+         The NBA Family application was made by Oliver Feher.
+         Oliver is currently a Flatiron School coding bootcamp student, 
+         and this project was build for the first module of the curriculum.
+         
+         Contact information:
+         --------------------
+         E-mail: olcsee@gmail.com
+         LinkedIn: https://www.linkedin.com/in/oliver-feher-10093912a/ 
+         GitHub: https://github.com/oliverfeher 
+
+        DOC
         menu_or_exit
     end
     
