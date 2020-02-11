@@ -20,20 +20,20 @@ N::::::N       N:::::::NB:::::::::::::::::BA:::::A               A:::::A
 N::::::N        N::::::NB::::::::::::::::BA:::::A                 A:::::A 
 NNNNNNNN         NNNNNNNBBBBBBBBBBBBBBBBBAAAAAAA                   AAAAAAA
 "
-        puts <<~DOC
+        puts <<~WELCOME
         ---------------------------------------------------------------------------
                              Welcome to the NBA family!
                       All display data belongs to Wikipedia.com
                            Copyright © 2020 oliverfeher
          
-        DOC
+        WELCOME
         list_options
     end
 
  
        # Listing main menu options + nested menu_input for user interaction
        def list_options
-        puts <<~DOC
+        puts <<~MAINMENU
 
         Select from the following options!
 
@@ -44,14 +44,14 @@ NNNNNNNN         NNNNNNNBBBBBBBBBBBBBBBBBAAAAAAA                   AAAAAAA
         5. Exit
 
 
-        DOC
+        MAINMENU
         menu_input
     end
 
     # Listing main menu options + nested menu_input for user interaction + clears the page
     def list_options2
         system "clear"
-        puts <<~DOC
+        puts <<~MAINMENUCLEAR
         Select from the following options!
        
         1. Enter your team
@@ -60,7 +60,7 @@ NNNNNNNN         NNNNNNNBBBBBBBBBBBBBBBBBAAAAAAA                   AAAAAAA
         4. Credits
         5. Exit
 
-        DOC
+        MAINMENUCLEAR
         menu_input
     end
 
@@ -106,18 +106,18 @@ NNNNNNNN         NNNNNNNBBBBBBBBBBBBBBBBBAAAAAAA                   AAAAAAA
     end
 
     def menu_or_exit
-        puts <<~DOC
+        puts <<~MENUOREXIT
         Select from available options:
         1. Menu
         2. Exit
         
         Your selection is:
-        DOC
+        MENUOREXIT
         little_menu_input
     end
 
     def self.select_another_exit
-        puts <<~DOC
+        puts <<~SELECTOREXIT
         -------------------------------
         
         Select from available options:
@@ -126,7 +126,7 @@ NNNNNNNN         NNNNNNNBBBBBBBBBBBBBBBBBAAAAAAA                   AAAAAAA
         3. Exit
         
         Your selection is:
-        DOC
+        SELECTOREXIT
         Cli.new.select_another_exit2
     end
 
@@ -151,10 +151,10 @@ NNNNNNNN         NNNNNNNBBBBBBBBBBBBBBBBBAAAAAAA                   AAAAAAA
 
     # Responsible for team selection from the list
     def select_team
-        puts <<~DOC
+        puts <<~SELECT
         ----------------------
         Select team by number:
-        DOC
+        SELECT
         select_team_input
     end
 
@@ -191,7 +191,7 @@ NNNNNNNN         NNNNNNNBBBBBBBBBBBBBBBBBAAAAAAA                   AAAAAAA
     # Responsible for exiting the app
     def closing
         system "clear"
-        puts <<~DOC
+        puts <<~CLOSING
              
         ╔═╗┌─┐┌─┐  ┬ ┬┌─┐┬ ┬┬
         ╚═╗├┤ ├┤   └┬┘│ ││ ││
@@ -199,7 +199,7 @@ NNNNNNNN         NNNNNNNBBBBBBBBBBBBBBBBBAAAAAAA                   AAAAAAA
 
         Thank you for using NBA Family!
         Copyright © 2020 oliverfeher
-        DOC
+        CLOSING
         exit
     end
     
@@ -207,7 +207,7 @@ NNNNNNNN         NNNNNNNBBBBBBBBBBBBBBBBBAAAAAAA                   AAAAAAA
     def nba_info
         system "clear"
         info = Scraper.get_nba_info
-        puts <<~DOC
+        puts <<~NBAINFO
          =========================================
          The National Basketball Association (NBA)
          =========================================
@@ -216,14 +216,14 @@ NNNNNNNN         NNNNNNNBBBBBBBBBBBBBBBBBAAAAAAA                   AAAAAAA
          
          #{info[1]}
          
-         DOC
+         NBAINFO
         menu_or_exit
     end
 
     # Responsible for displaying app credits
     def credits
         system "clear"
-        puts <<~DOC
+        puts <<~CREDITS
                    ----------------------------------------------
                    |         Welcome to the NBA family!         |
                    | All display data belongs to Wikipedia.com  |
@@ -240,7 +240,7 @@ NNNNNNNN         NNNNNNNBBBBBBBBBBBBBBBBBAAAAAAA                   AAAAAAA
          LinkedIn: https://www.linkedin.com/in/oliver-feher-10093912a/ 
          GitHub: https://github.com/oliverfeher 
 
-        DOC
+        CREDITS
         menu_or_exit
     end
     
