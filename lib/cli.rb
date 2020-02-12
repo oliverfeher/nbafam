@@ -23,7 +23,7 @@ NNNNNNNN         NNNNNNNBBBBBBBBBBBBBBBBBAAAAAAA                   AAAAAAA
         puts <<~WELCOME
         ---------------------------------------------------------------------------
                              Welcome to the NBA family!
-                      All display data belongs to Wikipedia.com
+                    All display data belongs to Wikipedia/NBA.com
                            Copyright © 2020 oliverfeher
          
         WELCOME
@@ -75,8 +75,8 @@ NNNNNNNN         NNNNNNNBBBBBBBBBBBBBBBBBAAAAAAA                   AAAAAAA
             enter_team
         when "2"
             system "clear"
-            NBA_TEAM.create_nba_teams
-            puts NBA_TEAM.list
+            NBA_Team.create_nba_teams
+            puts NBA_Team.list
             select_team
         when "3"
             nba_info
@@ -137,7 +137,7 @@ NNNNNNNN         NNNNNNNBBBBBBBBBBBBBBBBBAAAAAAA                   AAAAAAA
             Cli.new.list_options2
         when "2"
             system "clear"
-            puts NBA_TEAM.list
+            puts NBA_Team.list
             select_team
         when "3"
             closing
@@ -160,7 +160,7 @@ NNNNNNNN         NNNNNNNBBBBBBBBBBBBBBBBBAAAAAAA                   AAAAAAA
 
     def select_team_input
         user_input = gets.strip
-        team = NBA_TEAM.all[user_input.to_i - 1]
+        team = NBA_Team.all[user_input.to_i - 1]
         if user_input.to_i > 30 || user_input.to_i < 1 # Validation for userselection!!
             puts "Incorrect selection! Try it again!"
             select_team
@@ -173,10 +173,10 @@ NNNNNNNN         NNNNNNNBBBBBBBBBBBBBBBBBAAAAAAA                   AAAAAAA
     
     # Responsible for team selection by entering the name
     def enter_team
-        NBA_TEAM.create_nba_teams
+        NBA_Team.create_nba_teams
         puts "Type your team name here:"
         user_input = gets.strip
-        team = NBA_TEAM.all.detect {|a| a.name.downcase.include? "#{user_input}" }
+        team = NBA_Team.all.detect {|a| a.name.downcase.include? "#{user_input}" }
         if !team # Validation for entry !!!
             puts "Incorrect selection! Try it again!"
             enter_team

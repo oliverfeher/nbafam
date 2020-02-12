@@ -1,6 +1,6 @@
-class NBA_TEAM
+class NBA_Team
 
-    attr_accessor :name, :conference, :divison, :founded, :year, :arena, :location, :gm, :coach, :updated, :roster
+    attr_accessor :name, :conference, :divison, :founded, :year, :arena, :location, :gm, :coach, :updated, :roster, :url
 
     # CONSTRUCTOR
     
@@ -13,9 +13,10 @@ class NBA_TEAM
     end
 
     def self.create_teams
-        names = Scraper.get_team_list
-        names.each do |name|
-            create(name)
+        team_hashes = Scraper.get_team_list
+        team_hashes.each do |hash|
+            team = create(hash[:name])
+            team.url = hash[:url]
         end
     end
 
@@ -36,13 +37,7 @@ class NBA_TEAM
 
     def update_from_nba
                                       # /team/hawks or teams/celtics  => Boston Celtics => [Boston, Celtics] => Celtics => celtics
-        url = "https://www.nba.com/teams/#{name.split(' ').last.downcase}"
-        if url == "https://www.nba.com/teams/76ers"
-            url = "https://www.nba.com/teams/sixers"
-            self.roster = Scraper.get_team_roster(url)
-        else
-            self.roster = Scraper.get_team_roster(url)
-        end
+        self.roster = Scraper.get_team_roster(url)
     end
 
     def update_from_hash(hash)

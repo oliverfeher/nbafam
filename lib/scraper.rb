@@ -3,6 +3,7 @@ require "nokogiri"
 require "open-uri"
 
 class Scraper
+    BASE_URL = "https://nba.com"
 
     # Gets general information about the NBA
     # --------------------------------------------------------------------
@@ -49,11 +50,13 @@ class Scraper
     # Gets a list of all 30 NBA teams
     # --------------------------------------------------------------------
     def self.get_team_list
-        doc = Nokogiri::HTML(open("https://www.nba.com/teams"))
-        team_list = doc.css(".team__list").collect do |team|      
-            team.text                                               
-        end
+        doc = Nokogiri::HTML(open("#{BASE_URL}/teams"))
+        team_list = doc.css(".team__list").collect do |team| 
+            {name: team.text, url: BASE_URL + team.css('a').attr('href').value}                                               
+        end      
     end
+    
+    
     
 end
 
