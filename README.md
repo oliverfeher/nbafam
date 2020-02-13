@@ -1,27 +1,33 @@
 # NBA FAMILY
 
-Welcome to the NBA Family application. This project was build for Flatiron Schoold software engineering boot camp. Based on object oriented Ruby and Nokogiri/Open-URI libraries.
+Welcome to the NBA Family application. This project was built for Flatiron Schoold software engineering boot camp. Based on object oriented Ruby and Nokogiri/Open-URI libraries.
 
 The app displays all 30 teams of the NBA. You can search them by index number or by entering the team's city/name. Upon team selection you are shown the team's current roster, and general information about the selected team.
 
 I hope you enjoy it! Feel free to contact me, my information is listed under option #4 from the main menu.
 
-## Installation
+## Getting started
 
-Execute bundle install to load all required libraries:
-
-   $ bundle install
-
-Executre run to start the application:
-
-    $ ./bin/run
+Run  
+```
+bundle install
+```  
+before starting.
 
 ## Usage
 
-TODO: Write usage instructions here
-
-## Development
-
+To run the program, be sure you are in the nbafam directory 
+```
+cd nbafam
+```
+and type in the terminal
+```
+./bin/run
+```
+or 
+```
+ruby ./bin/run
+```
 
 ## Contributing
 
