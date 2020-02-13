@@ -1,24 +1,20 @@
-# Nbafam
+# NBA FAMILY
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/nbafam`. To experiment with that code, run `bin/console` for an interactive prompt.
+Welcome to the NBA Family application. This project was build for Flatiron Schoold software engineering boot camp. Based on object oriented Ruby and Nokogiri/Open-URI libraries.
 
-TODO: Delete this and the text above, and describe your gem
+The app displays all 30 teams of the NBA. You can search them by index number or by entering the team's city/name. Upon team selection you are shown the team's current roster, and general information about the selected team.
+
+I hope you enjoy it! Feel free to contact me, my information is listed under option #4 from the main menu.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Execute bundle install to load all required libraries:
 
-```ruby
-gem 'nbafam'
-```
+   $ bundle install
 
-And then execute:
+Executre run to start the application:
 
-    $ bundle install
-
-Or install it yourself as:
-
-    $ gem install nbafam
+    $ ./bin/run
 
 ## Usage
 
@@ -26,9 +22,6 @@ TODO: Write usage instructions here
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ## Contributing
 
